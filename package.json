@@ -9,7 +9,7 @@
     "package": "ares-package --no-minify dist/",
     "deploy": "ares-install ${npm_package_name}_${npm_package_version}_all.ipk",
     "launch": "ares-launch ${npm_package_name}",
-    "manifest": "node tools/gen-manifest.js ${npm_package_name}",
+    "manifest": "node tools/gen-manifest.js ${npm_package_name}.manifest.json",
     "version": "node tools/sync-version.js && git add assets/appinfo.json"
   },
   "keywords": [],
