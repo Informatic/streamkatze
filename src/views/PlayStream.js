@@ -1,20 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
+import Plyr from 'plyr';
 import styles from '../style.module.scss';
 import { useParams } from 'react-router';
 import { useStreamsList } from '../data';
+import '!style-loader!css-loader!plyr/dist/plyr.css';
 
 /**
  * Even though webOS supports HLS natively, We use custom hls.js-based video
  * player, because streaming.media.ccc.de streams cause crashes of
  * starfish-media-pipeline...
  */
-function HLSStream({ urls }) {
+function HLSStream({ urls, ...props }) {
   const videoRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const player = new Plyr(videoRef.current, {
+      controls: ['play', 'captions', 'settings'],
+      settings: ['captions', 'quality', 'speed', 'loop'],
+      captions: { active: true, update: true, language: 'en' },
+    });
+
+    player.on('playing', (evt) => {
+      console.info('Loading:', evt);
+      setLoading(false);
+    });
+
     const hls = new Hls();
     let idx = 0;
+    player.on('languagechange', () => {
+      // Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
+      setTimeout(() => (hls.subtitleTrack = player.currentTrack), 50);
+    });
     // bind them together
     hls.attachMedia(videoRef.current);
     hls.on(Hls.Events.MEDIA_ATTACHED, function () {
@@ -59,15 +77,25 @@ function HLSStream({ urls }) {
     return () => {
       console.info('destroy!');
       hls.destroy();
+      player.destroy();
     };
   }, [urls]);
 
   return (
-    <video
-      ref={videoRef}
-      controls
-      className={styles.videoBox}
-    ></video>
+    <div className={styles.videoBox}>
+      {loading ? (
+        <div className={styles.loadingOverlay}>
+          <div class={styles.ldsEllipsis}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          Loading...
+        </div>
+      ) : null}
+      <video ref={videoRef} crossOrigin={true} {...props}></video>
+    </div>
   );
 }
 
@@ -86,6 +114,7 @@ export default function PlayStream({}) {
             streamurls.urls.hls.url,
             streamurls.urls.hls.url.replace('https://', 'http://'),
           ]}
+          poster={stream.poster.replace('https://', 'http://')}
         />
       );
     } else {
