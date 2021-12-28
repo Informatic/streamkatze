@@ -11,9 +11,8 @@ import '!style-loader!css-loader!plyr/dist/plyr.css';
  * player, because streaming.media.ccc.de streams cause crashes of
  * starfish-media-pipeline...
  */
-function HLSStream({ urls, ...props }) {
+function HLSStream({ urls, onPlaying = null, ...props }) {
   const videoRef = useRef(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const player = new Plyr(videoRef.current, {
@@ -24,7 +23,7 @@ function HLSStream({ urls, ...props }) {
 
     player.on('playing', (evt) => {
       console.info('Loading:', evt);
-      setLoading(false);
+      if (onPlaying) onPlaying(evt);
     });
 
     const hls = new Hls();
@@ -83,17 +82,6 @@ function HLSStream({ urls, ...props }) {
 
   return (
     <div className={styles.videoBox}>
-      {loading ? (
-        <div className={styles.loadingOverlay}>
-          <div class={styles.ldsEllipsis}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          Loading...
-        </div>
-      ) : null}
       <video ref={videoRef} crossOrigin={true} {...props}></video>
     </div>
   );
@@ -102,6 +90,20 @@ function HLSStream({ urls, ...props }) {
 export default function PlayStream({}) {
   let params = useParams();
   let streamsList = useStreamsList();
+  const [loading, setLoading] = useState(true);
+
+  const loader = (
+    <div className={styles.loadingOverlay}>
+      <div class={styles.ldsEllipsis}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      Loading...
+    </div>
+  );
+
   if (streamsList !== null) {
     const stream = streamsList.find((s) => s.slug == params.slug);
     const streamurls = stream.streams.find(
@@ -109,17 +111,22 @@ export default function PlayStream({}) {
     );
     if (streamurls) {
       return (
-        <HLSStream
-          urls={[
-            streamurls.urls.hls.url,
-            streamurls.urls.hls.url.replace('https://', 'http://'),
-          ]}
-          poster={stream.poster.replace('https://', 'http://')}
-        />
+        <>
+          {loading ? loader : null}
+          <HLSStream
+            urls={[
+              streamurls.urls.hls.url,
+              streamurls.urls.hls.url.replace('https://', 'http://'),
+            ]}
+            poster={stream.poster.replace('https://', 'http://')}
+            onPlaying={() => setLoading(false)}
+          />
+        </>
       );
     } else {
       return <div>404</div>;
     }
   }
-  return <div>Loading...</div>;
+
+  return loader;
 }
