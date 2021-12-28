@@ -1,13 +1,13 @@
 {
-  "id": "org.webosbrew.streamkatze",
-  "version": "1.0.0",
-  "vendor": "Informatic",
-  "type": "web",
-  "main": "index.html",
-  "title": "streamkatze",
-  "iconColor": "#231f20",
-  "appDescription": "Minimal streaming.media.ccc.de player application (EXPERIMENTAL)",
-  "icon": "icon80.png",
-  "splashBackground": "splash.png",
-  "largeIcon": "icon130.png"
+    "id": "org.webosbrew.streamkatze",
+    "version": "0.1.0",
+    "vendor": "Informatic",
+    "type": "web",
+    "main": "index.html",
+    "title": "streamkatze",
+    "iconColor": "#231f20",
+    "appDescription": "Minimal streaming.media.ccc.de player application (EXPERIMENTAL)",
+    "icon": "icon80.png",
+    "splashBackground": "splash.png",
+    "largeIcon": "icon130.png"
 }
