@@ -5,6 +5,8 @@ application for webOS.
 
 The Logo ["Voctocat"](https://morr.cc/voctocat/) is kindly provided by [Blinry](https://github.com/blinry) under CC BY-NC-SA 4.0 License.
 
+![Main Screen](https://github.com/informatic/streamkatze/blob/main/.github/screenshots/screenshot1.png?raw=true)
+
 ## Development
 
 ```sh
