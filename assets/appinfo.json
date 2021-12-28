@@ -1,9 +1,13 @@
 {
-  "id": "org.webosbrew.mediaccc",
+  "id": "org.webosbrew.streamkatze",
   "version": "1.0.0",
-  "vendor": "My Company",
+  "vendor": "Informatic",
   "type": "web",
   "main": "index.html",
-  "title": "media.ccc.de",
-  "icon": "icon.png"
+  "title": "streamkatze",
+  "iconColor": "#231f20",
+  "appDescription": "Minimal streaming.media.ccc.de player application (EXPERIMENTAL)",
+  "icon": "icon80.png",
+  "splashBackground": "splash.png",
+  "largeIcon": "icon130.png"
 }
