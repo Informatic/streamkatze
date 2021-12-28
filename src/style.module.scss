@@ -1,0 +1,92 @@
+@import 'flexbox.scss';
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: #333;
+    color: #eee;
+    font-family: sans-serif;
+}
+
+body > div {
+    height: 100%;
+    width: 100%;
+}
+
+.focusableList {
+    background: red;
+    // padding: 20px;
+    overflow: hidden;
+	--spatial-navigation-contain: contain;
+    --spatial-navigation-function: grid;
+	--spatial-navigation-action: focus;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.focusableItem {
+    background: green;
+    margin: 20px;
+    width: calc(2*160pt);
+    height: calc(2*90pt);
+    @include flex-shrink(0);
+    border-radius: 10px;
+    transition: box-shadow 0.2s;
+}
+
+.focusableItem:focus {
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 22.811px
+}
+
+.focusableListHorizontal > .scroller {
+    @include flexbox();
+    @include flex-direction(row);
+    transition: transform 0.3s;
+    overflow: hidden;
+    display: inline-flex;
+}
+
+.focusableListVertical > .scroller {
+    @include flexbox();
+    @include flex-direction(column);
+    transition: transform 0.3s;
+    overflow: hidden;
+    display: inline-flex;
+}
+
+.gridView {
+    @include flexbox();
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+
+	--spatial-navigation-contain: contain;
+    --spatial-navigation-function: grid;
+	--spatial-navigation-action: focus;
+}
+
+.gridVideoItem {
+    color: #eee;
+    text-decoration: none;
+    background: #222;
+    margin: 10pt;
+    padding: 10pt;
+    border-radius: 10px;
+    transition: box-shadow 0.2s;
+}
+
+.gridVideoItem .thumbnail {
+    width: calc(2*160pt);
+    height: calc(2*90pt);
+}
+
+.gridVideoItem:focus {
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 10px
+}
+
+.videoBox {
+    width: 100%;
+    height: 100%;
+}

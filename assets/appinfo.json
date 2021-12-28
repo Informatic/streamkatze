@@ -1,0 +1,9 @@
+{
+  "id": "org.webosbrew.mediaccc",
+  "version": "1.0.0",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "media.ccc.de",
+  "icon": "icon.png"
+}
