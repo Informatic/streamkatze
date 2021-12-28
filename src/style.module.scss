@@ -15,6 +15,10 @@ body > div {
     width: 100%;
 }
 
+h1 {
+    padding-left: 3em;
+}
+
 .focusableList {
     background: red;
     // padding: 20px;
@@ -78,8 +82,8 @@ body > div {
 }
 
 .gridVideoItem .thumbnail {
-    width: calc(2*160pt);
-    height: calc(2*90pt);
+    width: calc(1.5*160pt);
+    height: calc(1.5*90pt);
 }
 
 .gridVideoItem:focus {
