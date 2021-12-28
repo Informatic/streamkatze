@@ -78,7 +78,7 @@ function HLSStream({ urls, onPlaying = null, ...props }) {
       hls.destroy();
       player.destroy();
     };
-  }, [urls]);
+  }, []);
 
   return (
     <div className={styles.videoBox}>
@@ -93,7 +93,7 @@ export default function PlayStream({}) {
   const [loading, setLoading] = useState(true);
 
   const loader = (
-    <div className={styles.loadingOverlay}>
+    <div className={styles.loadingOverlay} key="loader">
       <div class={styles.ldsEllipsis}>
         <div></div>
         <div></div>
@@ -112,7 +112,6 @@ export default function PlayStream({}) {
     if (streamurls) {
       return (
         <>
-          {loading ? loader : null}
           <HLSStream
             urls={[
               streamurls.urls.hls.url,
@@ -120,7 +119,9 @@ export default function PlayStream({}) {
             ]}
             poster={stream.poster.replace('https://', 'http://')}
             onPlaying={() => setLoading(false)}
+            key="stream"
           />
+          {loading ? loader : null}
         </>
       );
     } else {
