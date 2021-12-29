@@ -1,6 +1,6 @@
 {
   "name": "org.webosbrew.streamkatze",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Minimal streaming.media.ccc.de player application (EXPERIMENTAL)",
   "main": "index.js",
   "scripts": {
