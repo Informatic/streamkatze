@@ -166,6 +166,8 @@
       if (e.target !== window) {
         savedSearchOrigin.element = e.target;
         savedSearchOrigin.rect = e.target.getBoundingClientRect();
+        // 20211229 fix broken navigation after element disappears ~inf
+        searchOriginRect = null;
       }
     });
   }
